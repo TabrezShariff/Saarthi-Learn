@@ -1,103 +1,88 @@
-import Image from "next/image";
+"use client"
 
-export default function Home() {
+import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
+import { BookOpen, Users, Globe, Award } from "lucide-react"
+import Link from "next/link"
+import { useAuth } from "@/contexts/auth-context"
+import { useRouter } from "next/navigation"
+import { useEffect } from "react"
+
+export default function HomePage() {
+  const { user } = useAuth()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (user) {
+      router.push("/dashboard/home")
+    }
+  }, [user, router])
+
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="bg-gradient-to-br from-zinc-50 to-slate-100 dark:from-zinc-900 dark:to-zinc-800">
+      <div className="container mx-auto px-4 py-16">
+        <div className="text-center space-y-8">
+          <div className="space-y-4">
+            <h1 className="text-6xl font-bold text-zinc-900 dark:text-white">Saarthi-Learn</h1>
+            <p className="text-2xl text-zinc-600 dark:text-zinc-300 max-w-3xl mx-auto">
+              Bridging Educational Gaps with Native-Language Learning
+            </p>
+          </div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/login">
+              <Button
+                size="lg"
+                className="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-4 text-lg rounded-2xl shadow-md hover:scale-[1.02] transition-all duration-200"
+              >
+                Login
+              </Button>
+            </Link>
+            <Link href="/signup">
+              <Button
+                variant="outline"
+                size="lg"
+                className="px-8 py-4 text-lg rounded-2xl shadow-md hover:scale-[1.02] transition-all duration-200 border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50 dark:hover:bg-indigo-950 bg-transparent"
+              >
+                Sign Up
+              </Button>
+            </Link>
+          </div>
+
+          {/* Features Section */}
+          <div className="mt-24 grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <Card className="p-6 bg-white/80 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700 rounded-2xl shadow-md hover:scale-[1.02] transition-all duration-200">
+              <BookOpen className="w-12 h-12 text-indigo-600 mb-4" />
+              <h3 className="text-xl font-semibold text-zinc-900 dark:text-white mb-2">Native Language Support</h3>
+              <p className="text-zinc-600 dark:text-zinc-300">
+                Learn in your preferred language with our multilingual platform
+              </p>
+            </Card>
+
+            <Card className="p-6 bg-white/80 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700 rounded-2xl shadow-md hover:scale-[1.02] transition-all duration-200">
+              <Users className="w-12 h-12 text-emerald-500 mb-4" />
+              <h3 className="text-xl font-semibold text-zinc-900 dark:text-white mb-2">Collaborative Learning</h3>
+              <p className="text-zinc-600 dark:text-zinc-300">
+                Connect with peers and instructors in an interactive environment
+              </p>
+            </Card>
+
+            <Card className="p-6 bg-white/80 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700 rounded-2xl shadow-md hover:scale-[1.02] transition-all duration-200">
+              <Globe className="w-12 h-12 text-indigo-600 mb-4" />
+              <h3 className="text-xl font-semibold text-zinc-900 dark:text-white mb-2">Global Access</h3>
+              <p className="text-zinc-600 dark:text-zinc-300">Access quality education from anywhere in the world</p>
+            </Card>
+
+            <Card className="p-6 bg-white/80 dark:bg-zinc-800/80 border border-zinc-200 dark:border-zinc-700 rounded-2xl shadow-md hover:scale-[1.02] transition-all duration-200">
+              <Award className="w-12 h-12 text-emerald-500 mb-4" />
+              <h3 className="text-xl font-semibold text-zinc-900 dark:text-white mb-2">Certified Courses</h3>
+              <p className="text-zinc-600 dark:text-zinc-300">
+                Earn certificates and advance your career with verified skills
+              </p>
+            </Card>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
     </div>
-  );
+  )
 }
